@@ -1,17 +1,52 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Code, Rocket, Users, Award } from 'lucide-react';
+
+const Counter = ({ value, suffix = '', duration = 1.5, start = false }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!start) return;
+
+    let startTime = null;
+    let frameId;
+
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      const current = Math.floor(progress * value);
+      setCount(current);
+
+      if (progress < 1) {
+        frameId = requestAnimationFrame(animate);
+      }
+    };
+
+    frameId = requestAnimationFrame(animate);
+
+    return () => {
+      if (frameId) cancelAnimationFrame(frameId);
+    };
+  }, [start, value, duration]);
+
+  return (
+    <span>
+      {count}
+      {suffix}
+    </span>
+  );
+};
 
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const stats = [
-    { icon: Code, value: '5+', label: 'Years Experience', gradient: 'from-blue-500 to-cyan-500' },
-    { icon: Rocket, value: '50+', label: 'Projects Delivered', gradient: 'from-purple-500 to-pink-500' },
-    { icon: Users, value: '100%', label: 'Client Satisfaction', gradient: 'from-green-500 to-emerald-500' },
-    { icon: Award, value: 'Expert', label: 'Full Stack Dev', gradient: 'from-orange-500 to-red-500' },
+    { icon: Code, value: 5, suffix: '+', label: 'Years Experience', gradient: 'from-blue-500 to-cyan-500' },
+    { icon: Rocket, value: 15, suffix: '+', label: 'Projects Delivered', gradient: 'from-purple-500 to-pink-500' },
+    { icon: Users, value: 95, suffix: '%', label: 'Client Satisfaction', gradient: 'from-green-500 to-emerald-500' },
+    { icon: Award, value: 1, suffix: 'x', label: 'Full Stack Dev', gradient: 'from-orange-500 to-red-500' },
   ];
 
   return (
@@ -91,7 +126,9 @@ const About = () => {
                       <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-r ${stat.gradient} mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
                         <Icon className="w-6 h-6 text-white" />
                       </div>
-                      <div className="text-3xl md:text-4xl font-bold text-gradient mb-1">{stat.value}</div>
+                      <div className="text-3xl md:text-4xl font-bold text-gradient mb-1">
+                        <Counter value={stat.value} suffix={stat.suffix} start={isInView} />
+                      </div>
                       <div className="text-sm text-gray-400">{stat.label}</div>
                     </div>
                   </div>

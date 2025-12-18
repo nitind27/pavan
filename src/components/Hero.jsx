@@ -59,63 +59,85 @@ const Hero = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
       >
-        <motion.div
-          variants={itemVariants}
-          className="mb-4"
-        >
-          <span className="inline-block px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium">
-            5+ Years of Experience
-          </span>
-        </motion.div>
+        <div className="grid gap-12 items-center lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+          {/* Text content */}
+          <div className="text-center lg:text-left">
+            <motion.div
+              variants={itemVariants}
+              className="mb-4"
+            >
+              <span className="inline-block px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium">
+                5+ Years of Experience
+              </span>
+            </motion.div>
 
-        <motion.h1
-          variants={itemVariants}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
-        >
-          <span className="text-white">Hi, I'm </span>
-          <span className="text-gradient">Pavan Dube</span>
-        </motion.h1>
+            <motion.h1
+              variants={itemVariants}
+              className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
+            >
+              <span className="text-white">Hi, I'm </span>
+              <span className="text-gradient">Pavan Dube</span>
+            </motion.h1>
 
-        <motion.h2
-          variants={itemVariants}
-          className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-6 text-gray-300"
-        >
-          Full Stack Developer
-        </motion.h2>
+            <motion.h2
+              variants={itemVariants}
+              className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-6 text-gray-300"
+            >
+              Full Stack Developer
+            </motion.h2>
 
-        <motion.p
-          variants={itemVariants}
-          className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12"
-        >
-          Crafting exceptional digital experiences with modern technologies.
-          Transforming ideas into scalable, high-performance web applications.
-        </motion.p>
+            <motion.p
+              variants={itemVariants}
+              className="text-lg md:text-xl text-gray-400 max-w-2xl lg:max-w-xl mx-auto lg:mx-0 mb-12"
+            >
+              Crafting exceptional digital experiences with modern technologies.
+              Transforming ideas into scalable, high-performance web applications.
+            </motion.p>
 
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-        >
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-semibold text-lg flex items-center gap-2 hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center"
+            >
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-semibold text-lg flex items-center gap-2 hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
+              >
+                Contact Me
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+
+              <motion.a
+                href="#projects"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 border-2 border-gray-600 rounded-full text-white font-semibold text-lg hover:border-purple-500 hover:bg-purple-500/10 transition-all duration-300"
+              >
+                View Projects
+              </motion.a>
+            </motion.div>
+          </div>
+
+          {/* Professional profile photo */}
+          <motion.div
+            variants={itemVariants}
+            className="relative mx-auto w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
+            whileHover={{ scale: 1.02 }}
           >
-            Contact Me
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </motion.a>
-
-          <motion.a
-            href="#projects"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 border-2 border-gray-600 rounded-full text-white font-semibold text-lg hover:border-purple-500 hover:bg-purple-500/10 transition-all duration-300"
-          >
-            View Projects
-          </motion.a>
-        </motion.div>
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/40 via-purple-500/40 to-sky-400/40 blur-3xl" />
+            <div className="relative w-full h-full rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-gray-900/40 backdrop-blur-md">
+              <img
+                src="/2.jpeg"
+                alt="Pavan Dube - Professional Profile"
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
+            </div>
+          </motion.div>
+        </div>
 
         {/* Scroll Indicator */}
         <motion.div
